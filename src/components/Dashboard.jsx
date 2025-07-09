@@ -331,7 +331,7 @@ function Dashboard() {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {categories.map(category => (
-              <div key={category} className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 sm:p-6 border border-[var(--card-border)]">
+              <div key={category} className="bg-[var(--card-bg)] rounded-xl p-4 sm:p-6 border border-[var(--card-border)]">
                 <h3 className="text-base sm:text-lg font-semibold mb-4 flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                   <FaUsers className="text-blue-500" />
                   {category}
@@ -342,7 +342,7 @@ function Dashboard() {
                     .map(field => (
                       <motion.div 
                         key={field.field} 
-                        className="bg-[var(--secondary-bg)] rounded-lg p-3 sm:p-4 shadow-sm border border-[var(--border)] hover:shadow-md transition-shadow relative overflow-hidden"
+                        className="bg-[var(--card-bg)] rounded-lg p-3 sm:p-4 shadow-sm border border-[var(--card-border)] hover:shadow-md transition-shadow relative overflow-hidden"
                         whileHover={{ 
                           scale: 1.02,
                           y: -2,
@@ -421,7 +421,7 @@ function Dashboard() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <motion.button 
               onClick={() => navigate('/business-data')} 
-              className="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 sm:p-6 rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-200 flex items-center gap-3 relative overflow-hidden"
+              className="bg-[var(--card-bg)] border border-[var(--card-border)] text-white p-4 sm:p-6 rounded-xl hover:shadow-md transition-all duration-200 flex items-center gap-3 relative overflow-hidden"
               whileHover={{ 
                 scale: 1.05,
                 y: -5,
@@ -460,7 +460,7 @@ function Dashboard() {
             </motion.button>
             <motion.button 
               onClick={() => navigate('/business-data')} 
-              className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 sm:p-6 rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-200 flex items-center gap-3 relative overflow-hidden"
+              className="bg-[var(--card-bg)] border border-[var(--card-border)] text-white p-4 sm:p-6 rounded-xl hover:shadow-md transition-all duration-200 flex items-center gap-3 relative overflow-hidden"
               whileHover={{ 
                 scale: 1.05,
                 y: -5,
@@ -499,7 +499,7 @@ function Dashboard() {
             </motion.button>
             <motion.button 
               onClick={() => navigate('/profit-loss')} 
-              className="bg-gradient-to-r from-purple-500 to-pink-600 text-white p-4 sm:p-6 rounded-xl hover:from-purple-600 hover:to-pink-700 transition-all duration-200 flex items-center gap-3 relative overflow-hidden"
+              className="bg-[var(--card-bg)] border border-[var(--card-border)] text-white p-4 sm:p-6 rounded-xl hover:shadow-md transition-all duration-200 flex items-center gap-3 relative overflow-hidden"
               whileHover={{ 
                 scale: 1.05,
                 y: -5,
@@ -538,7 +538,7 @@ function Dashboard() {
             </motion.button>
             <motion.button 
               onClick={() => navigate('/goals')} 
-              className="bg-gradient-to-r from-orange-500 to-red-600 text-white p-4 sm:p-6 rounded-xl hover:from-orange-600 hover:to-red-700 transition-all duration-200 flex items-center gap-3 relative overflow-hidden"
+              className="bg-[var(--card-bg)] border border-[var(--card-border)] text-white p-4 sm:p-6 rounded-xl hover:shadow-md transition-all duration-200 flex items-center gap-3 relative overflow-hidden"
               whileHover={{ 
                 scale: 1.05,
                 y: -5,
