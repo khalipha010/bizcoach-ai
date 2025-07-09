@@ -1,4 +1,5 @@
-import { useState } from 'react';
+// src/components/Login.js
+import { useState, useContext } from 'react';
 import { auth } from '../firebase/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -6,23 +7,12 @@ import { motion } from 'framer-motion';
 
 import ThemeToggle from './ThemeToggle';
 import LoadingSpinner from './LoadingSpinner';
-import { 
-  FaLock, 
-  FaEnvelope, 
-  FaSignInAlt, 
-  FaUsers, 
-  FaDatabase, 
-  FaBoxOpen,
-  FaRocket,
-  FaLightbulb,
-  FaArrowRight,
-  FaChartLine,
-  FaCalculator,
-  FaBullseye
-} from 'react-icons/fa';
-
-import { useContext } from 'react';
 import ThemeContext from '../context/ThemeContext';
+
+import {
+  FaLock, FaEnvelope, FaSignInAlt, FaUsers, FaDatabase, FaBoxOpen,
+  FaRocket, FaLightbulb, FaArrowRight, FaChartLine, FaCalculator, FaBullseye
+} from 'react-icons/fa';
 
 function Login() {
   const { theme } = useContext(ThemeContext);
@@ -38,7 +28,6 @@ function Login() {
     setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // Navigation will be handled by PublicRoute when user state updates
     } catch {
       setError('Invalid email or password');
     } finally {
@@ -48,464 +37,155 @@ function Login() {
 
   return (
     <div className={theme === 'dark' ? 'dark' : ''}>
-      <motion.div 
+      <motion.div
         className="p-4 min-h-screen bg-[var(--primary-bg)] text-[var(--text-primary)]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
       >
-        {/* Navigation Bar */}
-        <motion.nav 
+
+        {/* Navbar */}
+        <motion.nav
           className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 p-4 bg-[var(--secondary-bg)] rounded-xl shadow border border-[var(--border)] gap-4"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.1, duration: 0.5 }}
         >
           <div className="flex flex-wrap gap-3 sm:gap-6 items-center">
-            <button onClick={() => navigate('/dashboard')} className="text-[var(--accent)] hover:underline font-semibold flex items-center gap-2 text-2xl sm:text-3xl px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <button onClick={() => navigate('/dashboard')} className="text-[var(--accent)] hover:underline font-semibold flex items-center gap-2 text-2xl sm:text-3xl">
               <FaBoxOpen /> <span className="hidden sm:inline">Dashboard</span>
             </button>
-            <button onClick={() => navigate('/business-data')} className="text-[var(--success)] hover:underline font-semibold flex items-center gap-2 text-2xl sm:text-3xl px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-green-400">
+            <button onClick={() => navigate('/business-data')} className="text-[var(--success)] hover:underline font-semibold flex items-center gap-2 text-2xl sm:text-3xl">
               <FaDatabase /> <span className="hidden sm:inline">Business Data</span>
             </button>
-            <button onClick={() => navigate('/profit-loss')} className="text-[var(--purple)] hover:underline font-semibold flex items-center gap-2 text-2xl sm:text-3xl px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400">
+            <button onClick={() => navigate('/profit-loss')} className="text-[var(--purple)] hover:underline font-semibold flex items-center gap-2 text-2xl sm:text-3xl">
               <FaCalculator /> <span className="hidden sm:inline">Profit/Loss</span>
             </button>
-            <button onClick={() => navigate('/goals')} className="text-[var(--highlight)] hover:underline font-semibold flex items-center gap-2 text-2xl sm:text-3xl px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-orange-400">
+            <button onClick={() => navigate('/goals')} className="text-[var(--highlight)] hover:underline font-semibold flex items-center gap-2 text-2xl sm:text-3xl">
               <FaBullseye /> <span className="hidden sm:inline">Goals</span>
             </button>
-            <button onClick={() => navigate('/login')} className="text-[var(--accent)] hover:underline font-semibold flex items-center gap-2 text-2xl sm:text-3xl px-3 py-2 sm:px-4 sm:py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <button onClick={() => navigate('/login')} className="text-[var(--accent)] hover:underline font-semibold flex items-center gap-2 text-2xl sm:text-3xl">
               <FaUsers /> <span className="hidden sm:inline">Login</span>
             </button>
           </div>
           <ThemeToggle />
         </motion.nav>
 
-        {/* Main Content */}
-        <motion.div 
+        {/* Main Login Section */}
+        <motion.div
           className="max-w-4xl mx-auto"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          {/* Welcome Section */}
-          <motion.div 
-            className="rounded-xl p-4 sm:p-6 mb-8 border relative overflow-hidden" style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
+          <motion.div
+            className="rounded-xl p-6 mb-8 border relative overflow-hidden"
+            style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.6 }}
-            whileHover={{ 
-              scale: 1.02,
-              boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
-            }}
           >
-            {/* Parallax Background Elements */}
-            <motion.div
-              className="absolute top-0 right-0 w-32 h-32 bg-[var(--feature-bg)] rounded-full opacity-20"
-              animate={{ 
-                y: [0, -20, 0],
-                rotate: [0, 180, 360]
-              }}
-              transition={{ 
-                duration: 8, 
-                repeat: Infinity, 
-                ease: "linear" 
-              }}
-            />
-            <motion.div
-              className="absolute bottom-0 left-0 w-24 h-24 bg-[var(--feature-bg-alt)] rounded-full opacity-20"
-              animate={{ 
-                y: [0, 15, 0],
-                scale: [1, 1.2, 1]
-              }}
-              transition={{ 
-                duration: 6, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
-              }}
-            />
-            
             <div className="relative z-10">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
-                <motion.div
-                  animate={{ rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                  whileHover={{ 
-                    scale: 1.2,
-                    rotate: [0, 15, -15, 0]
-                  }}
-                >
-                  <FaRocket className="text-2xl sm:text-3xl text-[var(--accent)] flex-shrink-0" />
-                </motion.div>
-                <motion.h1 
-                  className="text-xl sm:text-2xl font-bold bg-[var(--gradient-primary)] bg-clip-text text-transparent"
-                  whileHover={{ scale: 1.05 }}
-                >
+              <div className="flex items-center gap-3 mb-4">
+                <FaRocket className="text-3xl text-[var(--accent)]" />
+                <h1 className="text-2xl font-bold bg-[var(--gradient-primary)] bg-clip-text text-transparent">
                   Welcome to Business Coach AI
-                </motion.h1>
+                </h1>
               </div>
-              <motion.p 
-                className="text-[var(--text-primary)] mb-4 text-sm sm:text-base"
-                whileHover={{ color: "var(--accent)" }}
-              >
-                Sign in to access your personalized business dashboard and start tracking your performance with AI-powered insights.
-              </motion.p>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                <motion.button 
-                  onClick={() => navigate('/register')} 
-                  className="bg-[var(--accent)] text-[var(--text-primary)] px-4 py-2 rounded-lg hover:bg-[var(--accent-hover)] flex items-center justify-center gap-2 text-sm sm:text-base relative overflow-hidden"
-                  whileHover={{ 
-                    scale: 1.05, 
-                    y: -3,
-                    boxShadow: "0 10px 25px rgba(147, 51, 234, 0.3)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <motion.div
-                    className="absolute inset-0 bg-[var(--gradient-purple)] opacity-0"
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <span className="relative z-10 flex items-center gap-2">
-                    <motion.div
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <FaUsers />
-                    </motion.div>
-                    Create Account
-                  </span>
-                </motion.button>
-                <motion.button 
-                  onClick={() => navigate('/dashboard')} 
-                  className="bg-[var(--accent)] text-[var(--text-primary)] px-4 py-2 rounded-lg hover:bg-[var(--accent-hover)] flex items-center justify-center gap-2 text-sm sm:text-base relative overflow-hidden"
-                  whileHover={{ 
-                    scale: 1.05, 
-                    y: -3,
-                    boxShadow: "0 10px 25px rgba(59, 130, 246, 0.3)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <motion.div
-                    className="absolute inset-0 bg-[var(--gradient-accent)] opacity-0"
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <span className="relative z-10 flex items-center gap-2">
-                    <motion.div
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <FaBoxOpen />
-                    </motion.div>
-                    Explore Dashboard
-                  </span>
-                </motion.button>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Login Form Card */}
-          <motion.div 
-            className="rounded-xl shadow p-4 sm:p-8 border relative overflow-hidden" style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
-            initial={{ y: 40, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            whileHover={{ 
-              scale: 1.01,
-              boxShadow: "0 25px 50px rgba(0,0,0,0.15)"
-            }}
-          >
-            {/* Floating particles */}
-            <motion.div
-              className="absolute top-4 right-4 w-2 h-2 bg-blue-400 rounded-full opacity-60"
-              animate={{ 
-                y: [0, -10, 0],
-                opacity: [0.6, 1, 0.6]
-              }}
-              transition={{ 
-                duration: 3, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
-              }}
-            />
-            <motion.div
-              className="absolute bottom-6 left-6 w-1 h-1 bg-purple-400 rounded-full opacity-60"
-              animate={{ 
-                y: [0, 8, 0],
-                x: [0, 5, 0]
-              }}
-              transition={{ 
-                duration: 4, 
-                repeat: Infinity, 
-                ease: "easeInOut",
-                delay: 1
-              }}
-            />
-            
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-6">
-                <motion.div
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 4 }}
-                  whileHover={{ 
-                    scale: 1.3,
-                    rotate: 360
-                  }}
-                >
-                  <FaSignInAlt className="text-xl sm:text-2xl text-[var(--accent)]" />
-                </motion.div>
-                <motion.h2 
-                  className="text-lg sm:text-xl font-semibold bg-[var(--gradient-primary)] bg-clip-text text-transparent"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  Sign In to Your Account
-                </motion.h2>
-              </div>
-          
-          {error && (
-            <div className="bg-[var(--warning-bg)] border-[var(--warning-border)] text-[var(--warning)] px-4 py-3 rounded-lg mb-6 ">
-              {error}
-            </div>
-          )}
-          
-          <form onSubmit={handleLogin} className="space-y-6">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <motion.label 
-                className="block text-sm font-medium text-[var(--text-primary)] mb-2 flex items-center gap-2"
-              >
-                <motion.div
-                  whileHover={{ rotate: 360, scale: 1.2 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <FaEnvelope className="text-[var(--accent)]" />
-                </motion.div>
-                Email Address
-              </motion.label>
-              <motion.input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-3 border border-[var(--border)] rounded-lg text-[var(--text-primary)] bg-[var(--secondary-bg)] focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all"
-                placeholder="Enter your email"
-                required
-                whileFocus={{ 
-                  scale: 1.02,
-                  boxShadow: "0 0 0 3px rgba(59, 130, 246, 0.1)"
-                }}
-                whileHover={{ 
-                  borderColor: "var(--accent)",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
-                }}
-              />
-            </motion.div>
-            
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-[var(--text-primary)] mb-2 flex items-center gap-2">
-                <FaLock className="text-[var(--accent)]" />
-                Password
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-3 border border-[var(--border)] rounded-lg text-[var(--text-primary)] bg-[var(--secondary-bg)] focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all"
-                placeholder="Enter your password"
-                required
-              />
-              <div className="mt-2 text-right">
-                <button
-                  type="button"
-                  className="text-[var(--accent)] underline hover:text-[var(--accent)] text-sm font-medium transition-colors"
-                  onClick={() => navigate('/reset-password')}
-                >
-                  Forgot password?
+              <p className="text-sm text-[var(--text-secondary)] mb-4">
+                Sign in to access your dashboard and insights.
+              </p>
+              <div className="flex gap-4">
+                <button onClick={() => navigate('/register')} className="bg-[var(--accent)] text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                  <FaUsers /> Create Account
+                </button>
+                <button onClick={() => navigate('/dashboard')} className="bg-[var(--accent)] text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                  <FaBoxOpen /> Explore Dashboard
                 </button>
               </div>
             </div>
-            
-            <motion.button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-[var(--gradient-accent)] text-[var(--text-primary)] p-3 rounded-lg hover:bg-[var(--accent-hover)] transition-all duration-200 flex items-center justify-center gap-2 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              {isLoading ? (
-                <LoadingSpinner size="sm" text="" />
-              ) : (
-                <>
-                  <FaSignInAlt />
-                  Sign In
-                  <FaArrowRight />
-                </>
-              )}
-            </motion.button>
-          </form>
-          
-          <motion.div 
-            className="mt-6 pt-6 border-t border-[var(--border)]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.5 }}
-          >
-            <p className="text-center text-[var(--text-secondary)]">
-              Don't have an account?{' '}
-              <motion.button 
-                onClick={() => navigate('/register')} 
-                className="text-[var(--accent)] hover:underline font-semibold"
-                whileHover={{ 
-                  scale: 1.05,
-                  textShadow: "0 0 8px var(--accent)"
-                }}
-              >
-                Create one here
-              </motion.button>
-            </p>
           </motion.div>
-        </div>
-        </motion.div>
 
-        {/* Features Section */}
-        <motion.div 
-          className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-        >
-          <motion.div 
-            className="bg-[var(--feature-bg)] rounded-xl p-4 sm:p-6 border border-[var(--feature-border)] relative overflow-hidden"
-            whileHover={{ 
-              scale: 1.08, 
-              y: -8,
-              boxShadow: "0 20px 40px rgba(34, 197, 94, 0.2)"
-            }}
-            transition={{ type: "spring", stiffness: 300 }}
+          {/* Login Form */}
+          <motion.div
+            className="rounded-xl shadow p-8 border relative overflow-hidden"
+            style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}
+            initial={{ y: 40, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
           >
-            {/* Parallax background */}
-            <motion.div
-              className="absolute inset-0 bg-[var(--feature-bg)] opacity-0"
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-            
             <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-3">
-                <motion.div
-                  animate={{ rotate: [0, 5, -5, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 5 }}
-                  whileHover={{ 
-                    scale: 1.5,
-                    rotate: [0, 15, -15, 0]
-                  }}
-                >
-                  <FaDatabase className="text-xl sm:text-2xl text-[var(--success)]" />
-                </motion.div>
-                <motion.h3 
-                  className="font-semibold text-sm sm:text-base bg-[var(--gradient-success)] bg-clip-text text-transparent"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  Track Performance
-                </motion.h3>
+              <div className="flex items-center gap-3 mb-6">
+                <FaSignInAlt className="text-2xl text-[var(--accent)]" />
+                <h2 className="text-xl font-semibold bg-[var(--gradient-primary)] bg-clip-text text-transparent">
+                  Sign In to Your Account
+                </h2>
               </div>
-              <motion.p 
-                className="text-xs sm:text-sm text-green-700"
-                whileHover={{ color: "rgb(34, 197, 94)" }}
-              >
-                Monitor your business metrics with detailed analytics and insights.
-              </motion.p>
-            </div>
-          </motion.div>
-          
-          <motion.div 
-            className="bg-[var(--feature-bg-alt)] rounded-xl p-4 sm:p-6 border border-[var(--feature-border-alt)] relative overflow-hidden"
-            whileHover={{ 
-              scale: 1.08, 
-              y: -8,
-              boxShadow: "0 20px 40px rgba(147, 51, 234, 0.2)"
-            }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            {/* Parallax background */}
-            <motion.div
-              className="absolute inset-0 bg-[var(--feature-bg-alt)] opacity-0"
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-            
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-3">
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 5 }}
-                  whileHover={{ 
-                    scale: 1.5,
-                    filter: "brightness(1.2)"
-                  }}
+
+              {error && (
+                <div className="bg-[var(--warning-bg)] border border-[var(--warning-border)] text-[var(--warning)] px-4 py-3 rounded-lg mb-6">
+                  {error}
+                </div>
+              )}
+
+              <form onSubmit={handleLogin} className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium mb-2 flex items-center gap-2">
+                    <FaEnvelope className="text-[var(--accent)]" /> Email
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full p-3 border border-[var(--border)] rounded-lg bg-[var(--secondary-bg)] text-[var(--text-primary)]"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2 flex items-center gap-2">
+                    <FaLock className="text-[var(--accent)]" /> Password
+                  </label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full p-3 border border-[var(--border)] rounded-lg bg-[var(--secondary-bg)] text-[var(--text-primary)]"
+                    placeholder="Enter your password"
+                    required
+                  />
+                  <div className="text-right mt-2">
+                    <button type="button" onClick={() => navigate('/reset-password')} className="text-[var(--accent)] underline text-sm">
+                      Forgot password?
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-[var(--gradient-accent)] text-white p-3 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50"
                 >
-                  <FaLightbulb className="text-xl sm:text-2xl text-[var(--purple)]" />
-                </motion.div>
-                <motion.h3 
-                  className="font-semibold text-sm sm:text-base bg-[var(--gradient-purple)] bg-clip-text text-transparent"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  AI Insights
-                </motion.h3>
+                  {isLoading ? (
+                    <LoadingSpinner size="sm" />
+                  ) : (
+                    <>
+                      <FaSignInAlt />
+                      Sign In
+                      <FaArrowRight />
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <div className="mt-6 text-center text-[var(--text-secondary)]">
+                Don’t have an account?{' '}
+                <button onClick={() => navigate('/register')} className="text-[var(--accent)] hover:underline font-semibold">
+                  Create one here
+                </button>
               </div>
-              <motion.p 
-                className="text-xs sm:text-sm text-purple-700"
-                whileHover={{ color: "rgb(147, 51, 234)" }}
-              >
-                Get intelligent recommendations to improve your business decisions.
-              </motion.p>
-            </div>
-          </motion.div>
-          
-          <motion.div 
-            className="bg-[var(--feature-bg-accent)] rounded-xl p-4 sm:p-6 border border-[var(--feature-border-accent)] sm:col-span-2 lg:col-span-1 relative overflow-hidden"
-            whileHover={{ 
-              scale: 1.08, 
-              y: -8,
-              boxShadow: "0 20px 40px rgba(59, 130, 246, 0.2)"
-            }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            {/* Parallax background */}
-            <motion.div
-              className="absolute inset-0 bg-[var(--feature-bg-accent)] opacity-0"
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-            
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-3">
-                <motion.div
-                  animate={{ y: [0, -3, 0] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 5 }}
-                  whileHover={{ 
-                    scale: 1.5,
-                    y: [0, -8, 0]
-                  }}
-                >
-                  <FaChartLine className="text-xl sm:text-2xl text-[var(--accent)]" />
-                </motion.div>
-                <motion.h3 
-                  className="font-semibold text-sm sm:text-base bg-[var(--gradient-accent)] bg-clip-text text-transparent"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  Visual Analytics
-                </motion.h3>
-              </div>
-              <motion.p 
-                className="text-xs sm:text-sm text-blue-700"
-                whileHover={{ color: "rgb(59, 130, 246)" }}
-              >
-                Beautiful charts and graphs to visualize your business data.
-              </motion.p>
             </div>
           </motion.div>
         </motion.div>
