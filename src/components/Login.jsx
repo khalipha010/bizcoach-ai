@@ -299,39 +299,29 @@ function Login() {
               />
             </motion.div>
             
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <motion.label 
-                className="block text-sm font-medium text-[var(--text-primary)] mb-2 flex items-center gap-2"
-                whileHover={{ color: "var(--accent)" }}
-              >
-                <motion.div
-                  whileHover={{ rotate: 360, scale: 1.2 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <FaLock className="text-green-400" />
-                </motion.div>
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-[var(--text-primary)] mb-2 flex items-center gap-2">
+                <FaLock className="text-blue-400" />
                 Password
-              </motion.label>
-              <motion.input
+              </label>
+              <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full p-3 border border-[var(--border)] rounded-lg text-[var(--text-primary)] bg-[var(--secondary-bg)] focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent transition-all"
                 placeholder="Enter your password"
                 required
-                whileFocus={{ 
-                  scale: 1.02,
-                  boxShadow: "0 0 0 3px rgba(34, 197, 94, 0.1)"
-                }}
-                whileHover={{ 
-                  borderColor: "var(--accent)",
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
-                }}
               />
-            </motion.div>
+              <div className="mt-2 text-right">
+                <button
+                  type="button"
+                  className="text-blue-600 underline hover:text-blue-800 text-sm font-medium transition-colors"
+                  onClick={() => navigate('/reset-password')}
+                >
+                  Forgot password?
+                </button>
+              </div>
+            </div>
             
             <motion.button
               type="submit"

@@ -5,9 +5,11 @@ import { AuthProvider } from './context/AuthContext';
 import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
+import PasswordReset from './components/PasswordReset';
 import BusinessData from './components/BusinessData';
 import ProfitLossCalculator from './components/ProfitLossCalculator';
 import GoalSetting from './components/GoalSetting';
+import CustomerDetails from './components/CustomerDetails';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
@@ -33,6 +35,11 @@ function AnimatedRoutes() {
             <Register />
           </PublicRoute>
         } />
+        <Route path="/reset-password" element={
+          <PublicRoute>
+            <PasswordReset />
+          </PublicRoute>
+        } />
         <Route path="/dashboard" element={
           <ProtectedRoute>
             <Dashboard />
@@ -54,6 +61,11 @@ function AnimatedRoutes() {
           </ProtectedRoute>
         } />
 
+        <Route path="/customer/:id" element={
+          <ProtectedRoute>
+            <CustomerDetails />
+          </ProtectedRoute>
+        } />
       </Routes>
     </AnimatePresence>
   );

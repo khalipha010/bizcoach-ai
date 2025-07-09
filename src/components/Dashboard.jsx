@@ -29,8 +29,15 @@ import {
   FaBullseye
 } from 'react-icons/fa';
 
+import { reAuthAndDeleteUser } from '../utils/reAuthAndDeleteUser';
+
 function Dashboard() {
   const { user, logout } = useContext(AuthContext);
+  // DEBUG: Log user object and photoURL
+  console.log('Dashboard user:', user);
+  if (user) {
+    console.log('Dashboard user.photoURL:', user.photoURL);
+  }
   const navigate = useNavigate();
   const [loggingOut, setLoggingOut] = useState(false);
 
@@ -38,6 +45,28 @@ function Dashboard() {
     setLoggingOut(true);
     if (typeof logout === 'function') await logout();
   };
+
+  // Delete Profile Handler
+  const handleDeleteProfile = async () => {
+    if (!window.confirm('Are you sure you want to delete your profile? This action cannot be undone.')) return;
+    const password = window.prompt('Please enter your password to confirm deletion:');
+    if (!password) return alert('Profile deletion cancelled.');
+    try {
+      await reAuthAndDeleteUser(password);
+      alert('Your profile has been deleted.');
+      navigate('/login');
+    } catch (err) {
+      if (err.code === 'auth/wrong-password') {
+        alert('Incorrect password. Profile not deleted.');
+      } else if (err.code === 'auth/too-many-requests') {
+        alert('Too many failed attempts. Please try again later.');
+      } else {
+        alert('Error deleting profile: ' + (err.message || err));
+      }
+    }
+  };
+
+
 
   useEffect(() => {
     if (loggingOut && !user) {
@@ -190,9 +219,19 @@ function Dashboard() {
         <div className="flex gap-2 sm:gap-4 items-center justify-end w-full sm:w-auto">
           <ThemeToggle />
           {user && (
-            <button onClick={handleLogout} className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 flex items-center gap-2 text-sm sm:text-base">
-              <FaSignOutAlt /> <span className="hidden sm:inline">Logout</span>
-            </button>
+            <>
+              <button onClick={handleLogout} className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 flex items-center gap-2 text-sm sm:text-base">
+                <FaSignOutAlt /> <span className="hidden sm:inline">Logout</span>
+              </button>
+              <button
+                onClick={handleDeleteProfile}
+                className="bg-gradient-to-r from-red-600 to-pink-600 text-white px-3 py-1 rounded hover:from-red-700 hover:to-pink-700 flex items-center gap-2 text-sm sm:text-base border border-red-700 ml-2"
+                style={{ transition: 'background 0.2s, box-shadow 0.2s' }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M1 7h22M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" /></svg>
+                <span className="hidden sm:inline">Delete Profile</span>
+              </button>
+            </>
           )}
         </div>
       </motion.nav>

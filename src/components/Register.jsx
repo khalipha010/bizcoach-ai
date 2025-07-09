@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { CLOUDINARY_UPLOAD_PRESET, CLOUDINARY_UPLOAD_ENDPOINT } from '../firebase/cloudinary';
 import { auth } from '../firebase/firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import AuthContext from '../context/AuthContext';
 
 import ThemeToggle from './ThemeToggle';
 import LoadingSpinner from './LoadingSpinner';
@@ -28,6 +30,7 @@ import {
 } from 'react-icons/fa';
 
 function Register() {
+  const { refreshUser } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -45,21 +48,44 @@ function Register() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       let photoURL = '';
       if (profilePicture) {
-        const data = new FormData();
-        data.append('file', profilePicture);
-        data.append('upload_preset', 'biscoach-profile');
-        const response = await axios.post(
-          'https://api.cloudinary.com/v1_1/dtxxvwnqv/image/upload',
-          data
-        );
-        photoURL = response.data.secure_url;
+        try {
+          const data = new FormData();
+          data.append('file', profilePicture);
+          data.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+          console.log('Uploading to Cloudinary:', CLOUDINARY_UPLOAD_ENDPOINT, data);
+          const response = await axios.post(
+            CLOUDINARY_UPLOAD_ENDPOINT,
+            data
+          );
+          console.log('Cloudinary upload response:', response);
+          photoURL = response.data.secure_url;
+        } catch (uploadErr) {
+          console.error('Cloudinary upload error:', uploadErr);
+          setError('Failed to upload image.');
+          setIsLoading(false);
+          return;
+        }
+      } else {
+        console.warn('No profilePicture selected.');
       }
-      await updateProfile(userCredential.user, {
-        displayName: `${firstName} ${lastName}`,
-        photoURL: photoURL,
-      });
+      try {
+        await updateProfile(userCredential.user, {
+          displayName: `${firstName} ${lastName}`,
+          photoURL: photoURL,
+        });
+        console.log('Profile updated with photoURL:', photoURL);
+        if (typeof refreshUser === 'function') {
+          await refreshUser();
+        }
+      } catch (profileErr) {
+        console.error('updateProfile error:', profileErr);
+        setError('Failed to update user profile.');
+        setIsLoading(false);
+        return;
+      }
       // Navigation will be handled by PublicRoute when user state updates
-    } catch {
+    } catch (err) {
+      console.error('Registration error:', err);
       setError('Failed to create account. Try a stronger password or different email.');
     } finally {
       setIsLoading(false);

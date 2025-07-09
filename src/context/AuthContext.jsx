@@ -5,6 +5,13 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
+  // Add refreshUser to allow manual user reload
+  const refreshUser = async () => {
+    if (auth.currentUser) {
+      await auth.currentUser.reload();
+      setUser(auth.currentUser);
+    }
+  };
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -26,7 +33,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, logout }}>
+    <AuthContext.Provider value={{ user, loading, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );
