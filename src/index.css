@@ -2,6 +2,16 @@
 @import 'tailwindcss';
 
 :root {
+  --primary-bg: #ffffff;
+  --secondary-bg: #f3f4f6;
+  --card-bg: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border: #e5e7eb;
+  --accent: #4f46e5;
+  --toggle-bg: #e5e7eb;
+  --toggle-hover: #d1d5db;
+  --toggle-icon: #4b5563;
   --primary-bg: #f8fafc;
   --secondary-bg: #ffffff;
   --text-primary: #0f172a;
@@ -16,6 +26,16 @@
 }
 
 .dark {
+  --primary-bg: #111827;
+  --secondary-bg: #1f2937;
+  --card-bg: #1f2937;
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --border: #374151;
+  --accent: #818cf8;
+  --toggle-bg: #374151;
+  --toggle-hover: #4b5563;
+  --toggle-icon: #e5e7eb;
   --primary-bg: #111827;
   --secondary-bg: #1f2937;
   --text-primary: #f3f4f6;

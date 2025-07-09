@@ -1,15 +1,22 @@
 import { useContext } from 'react';
 import ThemeContext from '../context/ThemeContext';
 
-function ThemeToggle() {
+import { FaSun, FaMoon } from 'react-icons/fa';
+
+function ThemeToggle({ mobile = false }) {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 bg-secondary-bg text-text-primary rounded-md hover:bg-accent hover:text-secondary-bg transition-colors"
+      className={`${mobile ? 'p-2' : 'p-1'} rounded-full bg-[var(--toggle-bg)] text-[var(--toggle-icon)] hover:bg-[var(--toggle-hover)] transition-colors`}
+      aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
     >
-      {theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+      {theme === 'dark' ? (
+        <FaSun className={mobile ? "text-lg" : "text-base"} />
+      ) : (
+        <FaMoon className={mobile ? "text-lg" : "text-base"} />
+      )}
     </button>
   );
 }
