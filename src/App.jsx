@@ -10,6 +10,7 @@ import BusinessData from './components/BusinessData';
 import ProfitLossCalculator from './components/ProfitLossCalculator';
 import GoalSetting from './components/GoalSetting';
 import CustomerDetails from './components/CustomerDetails';
+import Customers from './components/Customers';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
@@ -60,7 +61,11 @@ function AnimatedRoutes() {
             <GoalSetting />
           </ProtectedRoute>
         } />
-
+        <Route path="/customers" element={
+          <ProtectedRoute>
+            <Customers />
+          </ProtectedRoute>
+        } />
         <Route path="/customer/:id" element={
           <ProtectedRoute>
             <CustomerDetails />

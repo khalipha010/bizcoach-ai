@@ -27,6 +27,12 @@
   --radius-lg: 12px;
   --card-bg: linear-gradient(135deg, #f0f4ff 80%, #e0e7ff 100%);
   --card-border: #c7d2fe;
+
+  /* Dashboard Quick Action Gradients */
+  --card-gradient-green: linear-gradient(135deg, rgba(34,197,94,0.9) 0%, rgba(16,185,129,0.9) 100%);
+  --card-gradient-blue: linear-gradient(135deg, rgba(59,130,246,0.9) 0%, rgba(37,99,235,0.9) 100%);
+  --card-gradient-purple: linear-gradient(135deg, rgba(168,85,247,0.9) 0%, rgba(217,70,239,0.9) 100%);
+  --card-gradient-orange: linear-gradient(135deg, rgba(249,115,22,0.9) 0%, rgba(239,68,68,0.9) 100%);
 }
 
 .dark {
@@ -53,6 +59,12 @@
   --border: #374151;
   --card-bg: linear-gradient(135deg, #232946 80%, #1e293b 100%);
   --card-border: #334155;
+
+  /* Dashboard Quick Action Gradients - Dark */
+  --card-gradient-green: linear-gradient(135deg, rgba(16,185,129,0.8) 0%, rgba(5,150,105,0.8) 100%);
+  --card-gradient-blue: linear-gradient(135deg, rgba(37,99,235,0.8) 0%, rgba(30,64,175,0.8) 100%);
+  --card-gradient-purple: linear-gradient(135deg, rgba(139,92,246,0.8) 0%, rgba(168,85,247,0.8) 100%);
+  --card-gradient-orange: linear-gradient(135deg, rgba(249,115,22,0.8) 0%, rgba(239,68,68,0.8) 100%);
 }
 
 body {

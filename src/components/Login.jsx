@@ -5,7 +5,6 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-import ThemeToggle from './ThemeToggle';
 import ThemeContext from '../context/ThemeContext';
 
 import {
@@ -36,7 +35,7 @@ function Login() {
   };
 
   return (
-    <div className={theme === 'dark' ? 'dark' : ''}>
+    <div className="dark">
       <motion.div 
         className="p-4 min-h-screen bg-[var(--primary-bg)] text-[var(--text-primary)]"
         initial={{ opacity: 0 }}
@@ -46,29 +45,28 @@ function Login() {
       >
         {/* Navigation Bar */}
         <motion.nav 
-          className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 p-4 bg-[var(--secondary-bg)] rounded-xl shadow border border-[var(--border)] gap-4"
+          className="flex justify-center items-center mb-8 p-4 bg-[var(--secondary-bg)] rounded-xl shadow border border-[var(--border)]"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.1, duration: 0.5 }}
         >
-          <div className="flex flex-wrap gap-2 sm:gap-4 items-center">
-            <button onClick={() => navigate('/dashboard')} className="text-blue-600 hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
+          <div className="flex flex-wrap gap-4 items-center">
+            <button onClick={() => navigate('/dashboard')} className="text-blue-400 hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
               <FaBoxOpen /> <span className="hidden sm:inline">Dashboard</span>
             </button>
-            <button onClick={() => navigate('/business-data')} className="text-green-600 hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
+            <button onClick={() => navigate('/business-data')} className="text-green-400 hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
               <FaDatabase /> <span className="hidden sm:inline">Business Data</span>
             </button>
-            <button onClick={() => navigate('/profit-loss')} className="text-purple-600 hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
+            <button onClick={() => navigate('/profit-loss')} className="text-purple-400 hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
               <FaCalculator /> <span className="hidden sm:inline">Profit/Loss</span>
             </button>
-            <button onClick={() => navigate('/goals')} className="text-orange-600 hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
+            <button onClick={() => navigate('/goals')} className="text-orange-400 hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
               <FaBullseye /> <span className="hidden sm:inline">Goals</span>
             </button>
-            <button onClick={() => navigate('/register')} className="text-blue-600 hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
+            <button onClick={() => navigate('/register')} className="text-blue-400 hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
               <FaUserPlus /> <span className="hidden sm:inline">Register</span>
             </button>
           </div>
-          <ThemeToggle />
         </motion.nav>
 
         {/* Main Content */}
@@ -92,7 +90,7 @@ function Login() {
           >
             {/* Parallax Background Elements */}
             <motion.div
-              className="absolute top-0 right-0 w-32 h-32 bg-purple-200 dark:bg-purple-800 rounded-full opacity-20"
+              className="absolute top-0 right-0 w-32 h-32 bg-purple-800 rounded-full opacity-20"
               animate={{ 
                 y: [0, -20, 0],
                 rotate: [0, 180, 360]
@@ -104,7 +102,7 @@ function Login() {
               }}
             />
             <motion.div
-              className="absolute bottom-0 left-0 w-24 h-24 bg-pink-200 dark:bg-pink-800 rounded-full opacity-20"
+              className="absolute bottom-0 left-0 w-24 h-24 bg-pink-800 rounded-full opacity-20"
               animate={{ 
                 y: [0, 15, 0],
                 scale: [1, 1.2, 1]
@@ -126,10 +124,10 @@ function Login() {
                     rotate: [0, 15, -15, 0]
                   }}
                 >
-                  <FaRocket className="text-2xl sm:text-3xl text-purple-600 flex-shrink-0" />
+                  <FaRocket className="text-2xl sm:text-3xl text-purple-400 flex-shrink-0" />
                 </motion.div>
                 <motion.h1 
-                  className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent"
+                  className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent"
                   whileHover={{ scale: 1.05 }}
                 >
                   Welcome Back to Business Coach AI
@@ -199,12 +197,12 @@ function Login() {
           {/* Login Form Card */}
           <div className="rounded-xl shadow p-4 sm:p-8 border" style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
             <div className="flex items-center gap-3 mb-6">
-              <FaSignInAlt className="text-xl sm:text-2xl text-purple-500" />
-              <h2 className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent">Sign In to Your Account</h2>
+              <FaSignInAlt className="text-xl sm:text-2xl text-purple-400" />
+              <h2 className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Sign In to Your Account</h2>
             </div>
             
             {error && (
-              <div className="bg-red-100 border border-red-300 text-red-800 px-4 py-3 rounded-lg mb-6 dark:bg-red-900/20 dark:border-red-700 dark:text-red-300">
+              <div className="bg-red-900/20 border border-red-700 text-red-300 px-4 py-3 rounded-lg mb-6">
                 {error}
               </div>
             )}
@@ -286,30 +284,30 @@ function Login() {
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <div className="bg-gradient-to-br from-green-900/20 to-green-800/20 rounded-xl p-4 sm:p-6 border border-green-700">
               <div className="flex items-center gap-3 mb-3">
-                <FaDatabase className="text-xl sm:text-2xl text-green-800" />
-                <h3 className="font-semibold text-sm sm:text-base bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">Track Performance</h3>
+                <FaDatabase className="text-xl sm:text-2xl text-green-400" />
+                <h3 className="font-semibold text-sm sm:text-base bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Track Performance</h3>
               </div>
-              <p className="text-xs sm:text-sm text-green-700">
+              <p className="text-xs sm:text-sm text-green-300">
                 Monitor your business metrics with detailed analytics and insights.
               </p>
             </div>
             
             <div className="bg-gradient-to-br from-purple-900/20 to-purple-800/20 rounded-xl p-4 sm:p-6 border border-purple-700">
               <div className="flex items-center gap-3 mb-3">
-                <FaLightbulb className="text-xl sm:text-2xl text-purple-800" />
-                <h3 className="font-semibold text-sm sm:text-base bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">AI Insights</h3>
+                <FaLightbulb className="text-xl sm:text-2xl text-purple-400" />
+                <h3 className="font-semibold text-sm sm:text-base bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">AI Insights</h3>
               </div>
-              <p className="text-xs sm:text-sm text-purple-700">
+              <p className="text-xs sm:text-sm text-purple-300">
                 Get intelligent recommendations to improve your business decisions.
               </p>
             </div>
             
             <div className="bg-gradient-to-br from-blue-900/20 to-blue-800/20 rounded-xl p-4 sm:p-6 border border-blue-700 sm:col-span-2 lg:col-span-1">
               <div className="flex items-center gap-3 mb-3">
-                <FaChartLine className="text-xl sm:text-2xl text-blue-800" />
-                <h3 className="font-semibold text-sm sm:text-base bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Visual Analytics</h3>
+                <FaChartLine className="text-xl sm:text-2xl text-blue-400" />
+                <h3 className="font-semibold text-sm sm:text-base bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Visual Analytics</h3>
               </div>
-              <p className="text-xs sm:text-sm text-blue-700">
+              <p className="text-xs sm:text-sm text-blue-300">
                 Beautiful charts and graphs to visualize your business data.
               </p>
             </div>
@@ -332,7 +330,6 @@ function Login() {
             }}
             whileTap={{ scale: 0.9 }}
           >
-            {/* Parallax background elements */}
             <motion.div
               className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-500 opacity-0"
               whileHover={{ opacity: 1 }}
