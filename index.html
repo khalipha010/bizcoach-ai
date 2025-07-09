@@ -35,7 +35,9 @@
     <meta name="twitter:image" content="/bizcoach-logo.png" />
 
     <!-- Mobile Theme Color -->
-    <meta name="theme-color" content="#10b981" /> <!-- Tailwind emerald-500 -->
+    <!-- Prevent Chrome/Android from adapting theme color to device theme -->
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: light)" />
     <script>
       // Prevent device theme from affecting app: set .dark on <html> from localStorage only
       (function() {
