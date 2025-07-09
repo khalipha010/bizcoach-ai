@@ -19,9 +19,10 @@ const LoadingSpinner = ({ size = 'md', text = 'Loading...' }) => {
           ease: "linear"
         }}
       >
-        <div className="absolute inset-0 border-4 border-blue-200 dark:border-blue-800 rounded-full"></div>
+        {/* Changed to use theme variables */}
+        <div className="absolute inset-0 border-4 border-[var(--spinner-track)] rounded-full"></div>
         <motion.div
-          className="absolute inset-0 border-4 border-transparent border-t-blue-600 dark:border-t-blue-400 rounded-full"
+          className="absolute inset-0 border-4 border-transparent border-t-[var(--spinner-active)] rounded-full"
           animate={{ rotate: 360 }}
           transition={{
             duration: 1.5,
@@ -45,4 +46,4 @@ const LoadingSpinner = ({ size = 'md', text = 'Loading...' }) => {
   );
 };
 
-export default LoadingSpinner; 
+export default LoadingSpinner;
