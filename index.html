@@ -36,6 +36,19 @@
 
     <!-- Mobile Theme Color -->
     <meta name="theme-color" content="#10b981" /> <!-- Tailwind emerald-500 -->
+    <script>
+      // Prevent device theme from affecting app: set .dark on <html> from localStorage only
+      (function() {
+        try {
+          var theme = localStorage.getItem('theme');
+          if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
