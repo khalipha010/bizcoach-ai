@@ -1,6 +1,17 @@
 import { motion } from 'framer-motion';
+import { useContext, useEffect, useState } from 'react';
+import ThemeContext from '../context/ThemeContext';
 
 const LoadingSpinner = ({ size = 'md', text = 'Loading...' }) => {
+  const { theme } = useContext(ThemeContext);
+  const [resolvedTheme, setResolvedTheme] = useState('dark'); // Default to dark
+  
+  useEffect(() => {
+    // Check both context and DOM class as fallback
+    const domTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    setResolvedTheme(theme || domTheme);
+  }, [theme]);
+
   const sizeClasses = {
     sm: 'w-6 h-6',
     md: 'w-8 h-8',
@@ -9,7 +20,9 @@ const LoadingSpinner = ({ size = 'md', text = 'Loading...' }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4">
+    <div className={`fixed inset-0 flex flex-col items-center justify-center gap-4 z-50 ${
+      resolvedTheme === 'dark' ? 'bg-[#111827]' : 'bg-white'
+    }`}>
       <motion.div
         className={`${sizeClasses[size]} relative`}
         animate={{ rotate: 360 }}
@@ -19,10 +32,13 @@ const LoadingSpinner = ({ size = 'md', text = 'Loading...' }) => {
           ease: "linear"
         }}
       >
-        {/* Changed to use theme variables */}
-        <div className="absolute inset-0 border-4 border-[var(--spinner-track)] rounded-full"></div>
+        <div className={`absolute inset-0 border-4 rounded-full ${
+          resolvedTheme === 'dark' ? 'border-blue-800' : 'border-blue-200'
+        }`}></div>
         <motion.div
-          className="absolute inset-0 border-4 border-transparent border-t-[var(--spinner-active)] rounded-full"
+          className={`absolute inset-0 border-4 border-transparent rounded-full ${
+            resolvedTheme === 'dark' ? 'border-t-blue-400' : 'border-t-blue-600'
+          }`}
           animate={{ rotate: 360 }}
           transition={{
             duration: 1.5,
@@ -34,7 +50,9 @@ const LoadingSpinner = ({ size = 'md', text = 'Loading...' }) => {
       
       {text && (
         <motion.p
-          className="text-sm text-[var(--text-secondary)] font-medium"
+          className={`text-sm font-medium ${
+            resolvedTheme === 'dark' ? 'text-gray-200' : 'text-gray-800'
+          }`}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
