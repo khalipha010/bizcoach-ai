@@ -217,7 +217,7 @@ function ProfitLossCalculator() {
 
   return (
     <motion.div 
-      className="p-4 min-h-screen bg-[var(--primary-bg)] text-[var(--text-primary)]"
+      className="p-4 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
