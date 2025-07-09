@@ -164,42 +164,42 @@ function GoalSetting() {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'completed': return 'text-green-500';
-      case 'overdue': return 'text-red-500';
-      case 'on-track': return 'text-blue-500';
-      case 'in-progress': return 'text-yellow-500';
-      case 'at-risk': return 'text-orange-500';
-      default: return 'text-gray-500';
+      case 'completed': return 'text-[var(--accent)]';
+      case 'overdue': return 'text-[var(--warning)]';
+      case 'on-track': return 'text-[var(--info)]';
+      case 'in-progress': return 'text-[var(--caution)]';
+      case 'at-risk': return 'text-[var(--highlight)]';
+      default: return 'text-[var(--text-secondary)]';
     }
   };
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case 'completed': return <FaTrophy className="text-green-500" />;
-      case 'overdue': return <FaExclamationTriangle className="text-red-500" />;
-      case 'on-track': return <FaCheckCircle className="text-blue-500" />;
-      case 'in-progress': return <FaChartLine className="text-yellow-500" />;
-      case 'at-risk': return <FaExclamationTriangle className="text-orange-500" />;
-      default: return <FaBullseye className="text-gray-500" />;
+      case 'completed': return <FaTrophy className="text-[var(--accent)]" />;
+      case 'overdue': return <FaExclamationTriangle className="text-[var(--warning)]" />;
+      case 'on-track': return <FaCheckCircle className="text-[var(--info)]" />;
+      case 'in-progress': return <FaChartLine className="text-[var(--caution)]" />;
+      case 'at-risk': return <FaExclamationTriangle className="text-[var(--highlight)]" />;
+      default: return <FaBullseye className="text-[var(--text-secondary)]" />;
     }
   };
 
   const getPriorityColor = (priority) => {
     switch (priority) {
-      case 'high': return 'text-red-500';
-      case 'medium': return 'text-yellow-500';
-      case 'low': return 'text-green-500';
-      default: return 'text-gray-500';
+      case 'high': return 'text-[var(--warning)]';
+      case 'medium': return 'text-[var(--caution)]';
+      case 'low': return 'text-[var(--accent)]';
+      default: return 'text-[var(--text-secondary)]';
     }
   };
 
   const getAchievementBadge = (progress) => {
-    if (progress >= 100) return { icon: <FaCrown className="text-yellow-500" />, text: 'Goal Master', color: 'bg-yellow-100 text-yellow-800' };
-    if (progress >= 90) return { icon: <FaGem className="text-purple-500" />, text: 'Almost There', color: 'bg-purple-100 text-purple-800' };
-    if (progress >= 75) return { icon: <FaAward className="text-blue-500" />, text: 'On Fire', color: 'bg-blue-100 text-blue-800' };
-    if (progress >= 50) return { icon: <FaAward className="text-green-500" />, text: 'Halfway Hero', color: 'bg-green-100 text-green-800' };
-    if (progress >= 25) return { icon: <FaStar className="text-orange-500" />, text: 'Getting Started', color: 'bg-orange-100 text-orange-800' };
-    return { icon: <FaBullseye className="text-gray-500" />, text: 'Just Beginning', color: 'bg-gray-100 text-gray-800' };
+    if (progress >= 100) return { icon: <FaCrown className="text-[var(--caution)]" />, text: 'Goal Master', color: 'bg-[var(--badge-bg-caution)] text-[var(--badge-caution)]' };
+    if (progress >= 90) return { icon: <FaGem className="text-[var(--purple)]" />, text: 'Almost There', color: 'bg-[var(--badge-bg-purple)] text-[var(--badge-purple)]' };
+    if (progress >= 75) return { icon: <FaAward className="text-[var(--info)]" />, text: 'On Fire', color: 'bg-[var(--badge-bg-info)] text-[var(--badge-info)]' };
+    if (progress >= 50) return { icon: <FaAward className="text-[var(--accent)]" />, text: 'Halfway Hero', color: 'bg-[var(--badge-bg-success)] text-[var(--badge-success)]' };
+    if (progress >= 25) return { icon: <FaStar className="text-[var(--highlight)]" />, text: 'Getting Started', color: 'bg-[var(--badge-bg-highlight)] text-[var(--badge-highlight)]' };
+    return { icon: <FaBullseye className="text-[var(--text-secondary)]" />, text: 'Just Beginning', color: 'bg-[var(--badge-bg-default)] text-[var(--badge-default)]' };
   };
 
   const handleAddGoal = async (e) => {
@@ -260,22 +260,22 @@ function GoalSetting() {
     
     return [
       {
-        icon: <FaBullseye className="text-blue-500" />,
+        icon: <FaBullseye className="text-[var(--info)]" />,
         text: `You have ${goals.length} active goals with ${avgProgress.toFixed(1)}% average progress.`,
         type: 'overview'
       },
       completedGoals.length > 0 ? {
-        icon: <FaTrophy className="text-green-500" />,
+        icon: <FaTrophy className="text-[var(--accent)]" />,
         text: `Congratulations! You've completed ${completedGoals.length} goal${completedGoals.length > 1 ? 's' : ''}!`,
         type: 'success'
       } : null,
       overdueGoals.length > 0 ? {
-        icon: <FaExclamationTriangle className="text-red-500" />,
+        icon: <FaExclamationTriangle className="text-[var(--warning)]" />,
         text: `You have ${overdueGoals.length} overdue goal${overdueGoals.length > 1 ? 's' : ''}. Consider adjusting targets.`,
         type: 'warning'
       } : null,
       avgProgress > 75 ? {
-        icon: <FaFire className="text-orange-500" />,
+        icon: <FaFire className="text-[var(--highlight)]" />,
         text: `Amazing progress! You're on fire with ${avgProgress.toFixed(1)}% average completion.`,
         type: 'motivation'
       } : null
@@ -404,7 +404,7 @@ function GoalSetting() {
           >
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">Set New Goal</h2>
-              <button onClick={() => setShowAddGoal(false)} className="text-gray-500 hover:text-gray-700">
+              <button onClick={() => setShowAddGoal(false)} className="text-[var(--text-secondary)] hover:text-gray-700">
                 <FaMinus className="text-xl" />
               </button>
             </div>
@@ -511,7 +511,7 @@ function GoalSetting() {
           transition={{ type: "spring", stiffness: 300 }}
         >
           <div className="flex items-center gap-3 mb-4">
-            <FaBullseye className="text-2xl text-orange-500" />
+            <FaBullseye className="text-2xl text-[var(--highlight)]" />
             <h3 className="text-lg font-semibold bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">Total Goals</h3>
           </div>
           <div className="text-3xl font-bold text-[var(--text-primary)] mb-2">{goals.length}</div>
@@ -524,7 +524,7 @@ function GoalSetting() {
           transition={{ type: "spring", stiffness: 300 }}
         >
           <div className="flex items-center gap-3 mb-4">
-            <FaTrophy className="text-2xl text-green-500" />
+            <FaTrophy className="text-2xl text-[var(--accent)]" />
             <h3 className="text-lg font-semibold bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent">Completed</h3>
           </div>
           <div className="text-3xl font-bold text-[var(--text-primary)] mb-2">
@@ -539,7 +539,7 @@ function GoalSetting() {
           transition={{ type: "spring", stiffness: 300 }}
         >
           <div className="flex items-center gap-3 mb-4">
-            <FaChartLine className="text-2xl text-blue-500" />
+            <FaChartLine className="text-2xl text-[var(--info)]" />
             <h3 className="text-lg font-semibold bg-gradient-to-r from-blue-500 to-cyan-600 bg-clip-text text-transparent">Avg Progress</h3>
           </div>
           <div className="text-3xl font-bold text-[var(--text-primary)] mb-2">
@@ -552,7 +552,7 @@ function GoalSetting() {
       {/* Goals List */}
       <div className="max-w-6xl mx-auto mb-8">
         <h2 className="text-xl font-semibold mb-6 flex items-center gap-3">
-          <FaBullseye className="text-orange-500" />
+          <FaBullseye className="text-[var(--highlight)]" />
           <span className="bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">Your Goals</span>
         </h2>
         
@@ -612,11 +612,11 @@ function GoalSetting() {
                       
                       <div className="flex items-center gap-4 text-sm">
                         <div className="flex items-center gap-1">
-                          <FaBullseye className="text-orange-500" />
+                          <FaBullseye className="text-[var(--highlight)]" />
                           <span>Target: {goal.type === 'revenue' ? '₦' : ''}{goal.target.toLocaleString()}</span>
                         </div>
                         <div className="flex items-center gap-1">
-                          <FaCalendarAlt className="text-blue-500" />
+                          <FaCalendarAlt className="text-[var(--info)]" />
                           <span>Due: {new Date(goal.deadline).toLocaleDateString()}</span>
                         </div>
                         <div className="flex items-center gap-1">
@@ -669,20 +669,20 @@ function GoalSetting() {
       {/* AI Insights */}
       <div className="max-w-6xl mx-auto mb-8">
         <div className="flex items-center gap-3 mb-4">
-          <FaBrain className="text-xl sm:text-2xl text-purple-500" />
+          <FaBrain className="text-xl sm:text-2xl text-[var(--purple)]" />
           <h2 className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Goal Insights</h2>
-          <FaMagic className="text-base sm:text-lg text-blue-500" />
+          <FaMagic className="text-base sm:text-lg text-[var(--info)]" />
         </div>
         <div className="space-y-3">
           {getGoalInsights().map((insight, idx) => (
             <motion.div 
               key={idx} 
               className={`flex items-start gap-3 p-4 rounded-lg border-l-4 transition-all duration-200 hover:shadow-md ${
-                insight.type === 'warning' ? 'bg-red-50 border-red-400 dark:bg-red-900/20' :
-                insight.type === 'success' ? 'bg-green-50 border-green-400 dark:bg-green-900/20' :
-                insight.type === 'overview' ? 'bg-blue-50 border-blue-400 dark:bg-blue-900/20' :
-                insight.type === 'motivation' ? 'bg-orange-50 border-orange-400 dark:bg-orange-900/20' :
-                'bg-purple-50 border-purple-400 dark:bg-purple-900/20'
+                insight.type === 'warning' ? 'bg-[var(--warning-bg)] border-[var(--warning-border)]' :
+                insight.type === 'success' ? 'bg-[var(--success-bg)] border-[var(--success-border)]' :
+                insight.type === 'overview' ? 'bg-[var(--info-bg)] border-[var(--info-border)]' :
+                insight.type === 'motivation' ? 'bg-[var(--highlight-bg)] border-[var(--highlight-border)]' :
+                'bg-[var(--purple-bg)] border-[var(--purple-border)]'
               }`}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}

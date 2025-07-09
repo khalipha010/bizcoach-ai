@@ -181,7 +181,7 @@ function Dashboard() {
 
   return (
     <motion.div 
-      className="p-4 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white"
+      className="p-4 min-h-screen" style={{ background: 'var(--primary-bg)', color: 'var(--text-primary)' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -252,7 +252,7 @@ function Dashboard() {
           </div>
           <div className="flex flex-col items-center sm:flex-row sm:justify-end gap-4 w-full lg:w-auto">
             {user && (
-              <div className="flex items-center gap-3 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-lg p-3 border border-blue-200 dark:border-blue-700">
+              <div className="flex items-center gap-3 bg-[var(--card-bg)] rounded-lg p-3 border border-[var(--card-border)]">
                 <div className="relative">
                   {user.photoURL ? (
                     <img 
@@ -292,7 +292,7 @@ function Dashboard() {
         </div>
 
         {/* Welcome Section */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 sm:p-6 mb-8 border border-blue-200 dark:border-blue-700">
+        <div className="bg-[var(--card-bg)] rounded-xl p-4 sm:p-6 mb-8 border border-[var(--card-border)]">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
             <FaLightbulb className="text-2xl sm:text-3xl text-yellow-500 flex-shrink-0" />
             <h2 className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Welcome to Business Coach AI!</h2>
@@ -331,7 +331,7 @@ function Dashboard() {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {categories.map(category => (
-              <div key={category} className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-blue-700">
+              <div key={category} className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-4 sm:p-6 border border-[var(--card-border)]">
                 <h3 className="text-base sm:text-lg font-semibold mb-4 flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                   <FaUsers className="text-blue-500" />
                   {category}
@@ -396,7 +396,7 @@ function Dashboard() {
                                 {field.description}
                               </motion.p>
                               <motion.p 
-                                className="text-xs text-gray-500 dark:text-gray-400 italic"
+                                className="text-xs text-[var(--text-secondary)] italic"
                                 whileHover={{ color: "var(--accent)" }}
                               >
                                 {field.example}

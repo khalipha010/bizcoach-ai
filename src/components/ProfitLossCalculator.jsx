@@ -217,7 +217,7 @@ function ProfitLossCalculator() {
 
   return (
     <motion.div 
-      className="p-4 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white"
+      className="p-4 min-h-screen" style={{ background: 'var(--primary-bg)', color: 'var(--text-primary)' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -234,7 +234,7 @@ function ProfitLossCalculator() {
           <button onClick={() => navigate('/dashboard')} className="text-blue-600 hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
             <FaBoxOpen /> <span className="hidden sm:inline">Dashboard</span>
           </button>
-          <button onClick={() => navigate('/business-data')} className="text-green-600 hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
+          <button onClick={() => navigate('/business-data')} className="text-[var(--accent)] hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
             <FaDatabase /> <span className="hidden sm:inline">Business Data</span>
           </button>
           <button onClick={() => navigate('/profit-loss')} className="text-purple-600 hover:underline font-semibold flex items-center gap-1 text-sm sm:text-base">
@@ -370,7 +370,7 @@ function ProfitLossCalculator() {
 
       {error && (
         <motion.div 
-          className="max-w-6xl mx-auto mb-8 bg-red-100 border border-red-300 text-red-800 px-4 py-3 rounded-lg dark:bg-red-900/20 dark:border-red-700 dark:text-red-300"
+          className="max-w-6xl mx-auto mb-8 bg-[var(--error-bg)] border border-[var(--error-border)] text-[var(--error-text)] px-4 py-3 rounded-lg"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
@@ -666,7 +666,7 @@ function ProfitLossCalculator() {
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-4 border border-green-200 dark:border-green-700">
-                <h4 className="font-semibold text-green-800 dark:text-green-300 mb-2">Revenue Breakdown</h4>
+                <h4 className="font-semibold text-[var(--text-primary)] mb-2">Revenue Breakdown</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span>Total Revenue:</span>
@@ -684,7 +684,7 @@ function ProfitLossCalculator() {
               </div>
 
               <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4 border border-red-200 dark:border-red-700">
-                <h4 className="font-semibold text-red-800 dark:text-red-300 mb-2">Cost Breakdown</h4>
+                <h4 className="font-semibold text-[var(--text-primary)] mb-2">Cost Breakdown</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span>Production Costs:</span>
@@ -703,13 +703,13 @@ function ProfitLossCalculator() {
 
               <div className={`rounded-lg p-4 border ${
                 profitData.isProfitable 
-                  ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700' 
-                  : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-700'
+                  ? 'bg-[var(--card-bg)] border-[var(--card-border)]' 
+                  : 'bg-[var(--card-bg)] border-[var(--card-border)]'
               }`}>
                 <h4 className={`font-semibold mb-2 ${
                   profitData.isProfitable 
-                    ? 'text-green-800 dark:text-green-300' 
-                    : 'text-red-800 dark:text-red-300'
+                    ? 'text-[var(--text-primary)]' 
+                    : 'text-[var(--text-primary)]'
                 }`}>
                   Profitability Summary
                 </h4>
@@ -717,7 +717,7 @@ function ProfitLossCalculator() {
                   <div className="flex justify-between">
                     <span>Net Profit/Loss:</span>
                     <span className={`font-semibold ${
-                      profitData.isProfitable ? 'text-green-600' : 'text-red-600'
+                      profitData.isProfitable ? 'text-[var(--accent)]' : 'text-[var(--accent)]'
                     }`}>
                       ₦{formatCurrency(profitData.netProfit)}
                     </span>
@@ -725,8 +725,8 @@ function ProfitLossCalculator() {
                   <div className="flex justify-between">
                     <span>Profit Margin:</span>
                     <span className={`font-semibold ${
-                      profitData.profitMargin > 10 ? 'text-green-600' : 
-                      profitData.profitMargin > 0 ? 'text-yellow-600' : 'text-red-600'
+                      profitData.profitMargin > 10 ? 'text-[var(--accent)]' : 
+                      profitData.profitMargin > 0 ? 'text-yellow-600' : 'text-[var(--accent)]'
                     }`}>
                       {profitData.profitMargin.toFixed(1)}%
                     </span>
@@ -734,7 +734,7 @@ function ProfitLossCalculator() {
                   <div className="flex justify-between">
                     <span>Status:</span>
                     <span className={`font-semibold ${
-                      profitData.isProfitable ? 'text-green-600' : 'text-red-600'
+                      profitData.isProfitable ? 'text-[var(--accent)]' : 'text-[var(--accent)]'
                     }`}>
                       {profitData.isProfitable ? 'Profitable' : 'Loss Making'}
                     </span>
