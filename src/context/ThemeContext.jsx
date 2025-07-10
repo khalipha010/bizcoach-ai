@@ -1,9 +1,10 @@
+
 import { createContext, useState, useEffect } from 'react';
 
 const ThemeContext = createContext({
   theme: 'dark',
   toggleTheme: () => {},
-  isThemeLoaded: false // Add this new property
+  isThemeLoaded: false
 });
 
 export function ThemeProvider({ children }) {
@@ -11,22 +12,19 @@ export function ThemeProvider({ children }) {
   const [isThemeLoaded, setIsThemeLoaded] = useState(false);
 
   useEffect(() => {
-    // Check localStorage and system preference
-    const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-    setTheme(initialTheme);
+    // Check localStorage, default to dark
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
     setIsThemeLoaded(true);
     
-    // Apply immediately to HTML element
-    document.documentElement.classList.toggle('dark', initialTheme === 'dark');
-    document.documentElement.setAttribute('data-theme', initialTheme);
+    // Apply to HTML element
+    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
+    document.documentElement.setAttribute('data-theme', savedTheme);
     
     // Update meta theme-color
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
-      metaThemeColor.content = initialTheme === 'dark' ? '#111827' : '#ffffff';
+      metaThemeColor.content = savedTheme === 'dark' ? '#111827' : '#ffffff';
     }
   }, []);
 

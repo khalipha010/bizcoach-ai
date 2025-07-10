@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en" class="dark" data-theme="dark">
   <head>
@@ -37,28 +38,23 @@
     <!-- Theme Initialization -->
     <meta name="theme-color" content="#111827" id="theme-color-meta" />
     <script>
-      // Immediately set theme before React loads
+      // Immediately set dark theme before React loads
       (function() {
         try {
-          // 1. Check localStorage first
-          var savedTheme = localStorage.getItem('theme');
-          // 2. Fallback to system preference
-          var systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          // 3. Default to dark if nothing else
-          var theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
-          
-          // Apply to HTML element
-          document.documentElement.className = theme;
-          document.documentElement.setAttribute('data-theme', theme);
+          // Check localStorage, default to dark
+          var savedTheme = localStorage.getItem('theme') || 'dark';
+          // Apply dark theme
+          document.documentElement.className = 'dark';
+          document.documentElement.setAttribute('data-theme', 'dark');
           
           // Update theme-color meta tag
           var meta = document.getElementById('theme-color-meta');
           if (meta) {
-            meta.content = theme === 'dark' ? '#111827' : '#ffffff';
+            meta.content = '#111827';
           }
           
           // Set body background to prevent flash
-          document.body.style.backgroundColor = theme === 'dark' ? '#111827' : '#ffffff';
+          document.body.style.backgroundColor = '#111827';
         } catch(e) {
           console.error('Theme initialization error:', e);
         }
@@ -78,7 +74,10 @@
       }
       #root {
         min-height: 100vh;
-        background-color: inherit;
+        background-color: #111827;
+      }
+      .spinner-container {
+        background-color: #111827;
       }
     </style>
   </head>

@@ -1,16 +1,21 @@
+
 import { motion } from 'framer-motion';
 import { useContext, useEffect, useState } from 'react';
 import ThemeContext from '../context/ThemeContext';
 
 const LoadingSpinner = ({ size = 'md', text = 'Loading...' }) => {
-  const { theme } = useContext(ThemeContext);
-  const [resolvedTheme, setResolvedTheme] = useState('dark'); // Default to dark
-  
+  const { theme, isThemeLoaded } = useContext(ThemeContext);
+  const [resolvedTheme, setResolvedTheme] = useState('dark');
+
   useEffect(() => {
-    // Check both context and DOM class as fallback
-    const domTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-    setResolvedTheme(theme || domTheme);
-  }, [theme]);
+    // Use context theme if loaded, otherwise check data-theme attribute
+    if (isThemeLoaded) {
+      setResolvedTheme(theme);
+    } else {
+      const domTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      setResolvedTheme(domTheme);
+    }
+  }, [theme, isThemeLoaded]);
 
   const sizeClasses = {
     sm: 'w-6 h-6',
@@ -20,7 +25,7 @@ const LoadingSpinner = ({ size = 'md', text = 'Loading...' }) => {
   };
 
   return (
-    <div className={`fixed inset-0 flex flex-col items-center justify-center gap-4 z-50 ${
+    <div className={`fixed inset-0 flex flex-col items-center justify-center gap-4 z-50 spinner-container ${
       resolvedTheme === 'dark' ? 'bg-[#111827]' : 'bg-white'
     }`}>
       <motion.div
